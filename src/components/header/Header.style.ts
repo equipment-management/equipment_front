@@ -1,21 +1,39 @@
 import styled from "styled-components";
 
 export const Header = styled.div`
-  height: 110px;
+  height: 100px;
   width: 100vw;
 
   display: flex;
   align-items: center;
-  position: absolute;
+  justify-content: center;
+  position: fixed;
+  top: 0;
 
+  background-color: white;
   font-family: "Noto Rashi Hebrew";
 
-  h3 {
-    margin: 0;
+  .selected {
+    color: #000000;
+  }
+`;
+
+export const Container = styled.div`
+  width: 90%;
+  display: flex;
+  align-items: center;
+
+  #request {
+    width: 10%;
+  }
+
+  #requestDetail {
+    width: 13%;
   }
 `;
 
 export const Name = styled.div`
+  width: 17%;
   display: flex;
   align-items: center;
 
@@ -29,10 +47,40 @@ export const Name = styled.div`
   }
 `;
 
-export const Profile = styled.img`
-  width: 50px;
-  height: 50px;
-  border-radius: 100%;
+export const ListName = styled.h3`
+  margin: 0;
+  font-weight: 600;
+  font-size: 25px;
+  color: rgba(0, 0, 0, 0.4);
 
-  background-color: blanchedalmond;
+  cursor: pointer;
+`;
+
+export const Admin = styled.div`
+  width: 20%;
+  display: flex;
+  align-items: center;
+
+  cursor: pointer;
+  p {
+    color: rgba(0, 0, 0, 0.4);
+    font-weight: 600;
+    font-size: 18px;
+    margin-left: 25px;
+  }
+`;
+
+export const Profile = styled.div`
+  width: 57%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  img {
+    width: 55px;
+    height: 55px;
+    border-radius: 15px;
+
+    background-color: blanchedalmond;
+  }
 `;

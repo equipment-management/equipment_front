@@ -6,23 +6,26 @@ import Main from "./components/main";
 import Header from "./components/header";
 
 function App() {
-  const Root = styled.div`
-    height: 100vh;
+  const MainContainer = styled.div`
+    margin-top: 100px;
+  `;
+
+  const AllContainer = styled.div`
+    position: relative;
     width: 100%;
+    /* height: 100vh; */
   `;
 
   return (
-    <RecoilRoot>
-      <Root>
-        <BrowserRouter>
-          <Header />
-          <Routes>
-            <Route path="/" element={<Main />}></Route>
-            <Route path="*" element={<div>404</div>}></Route>
-          </Routes>
-        </BrowserRouter>
-      </Root>
-    </RecoilRoot>
+    <AllContainer>
+      <Header />
+      <MainContainer>
+        <Routes>
+          <Route path="/" element={<Main />}></Route>
+          <Route path="*" element={<div>404</div>}></Route>
+        </Routes>
+      </MainContainer>
+    </AllContainer>
   );
 }
 
