@@ -1,10 +1,12 @@
+/** @format */
+
 import React, { useEffect, useState } from "react";
 import * as H from "./Header.style";
 import Game from "../../assets/header/game.svg";
 import Profile from "../../assets/header/profile.png";
-import { useLocation } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { headerPath, userInfo } from "../../store/atom";
+import { headerPath } from "../../store/header/atom";
+import { userInfo } from "../../store/user/atom";
 
 const Header = () => {
   const [path, setPath] = useRecoilState(headerPath);
@@ -19,8 +21,6 @@ const Header = () => {
     path.now == "inquiry" || path.now == "edit" || path.now == "register"
       ? adminDom?.classList.add("selected")
       : adminDom?.classList.remove("selected");
-
-    console.log(path);
   }, [path]);
 
   const changePath = (id: string) => {
@@ -37,7 +37,10 @@ const Header = () => {
         <H.ListName id="request" onClick={() => changePath("request")}>
           신청
         </H.ListName>
-        <H.ListName id="requestDetail" onClick={() => changePath("requestDetail")}>
+        <H.ListName
+          id="requestDetail"
+          onClick={() => changePath("requestDetail")}
+        >
           신청내역
         </H.ListName>
         {info.admin ? (

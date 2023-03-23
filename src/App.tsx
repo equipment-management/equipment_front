@@ -5,17 +5,17 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Main from "./components/main";
 import Header from "./components/header";
 
+const MainContainer = styled.div`
+  margin-top: 100px;
+`;
+
+const AllContainer = styled.div`
+  position: relative;
+  width: 100%;
+  /* height: 100vh; */
+`;
+
 function App() {
-  const MainContainer = styled.div`
-    margin-top: 100px;
-  `;
-
-  const AllContainer = styled.div`
-    position: relative;
-    width: 100%;
-    /* height: 100vh; */
-  `;
-
   return (
     <AllContainer>
       <Header />

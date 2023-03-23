@@ -1,3 +1,5 @@
+/** @format */
+
 import styled from "styled-components";
 
 export const Header = styled.div`
@@ -19,9 +21,10 @@ export const Header = styled.div`
 `;
 
 export const Container = styled.div`
-  width: 90%;
+  width: 85%;
   display: flex;
   align-items: center;
+  position: relative;
 
   #request {
     width: 10%;
@@ -57,7 +60,7 @@ export const ListName = styled.h3`
 `;
 
 export const Admin = styled.div`
-  width: 20%;
+  width: 300px;
   display: flex;
   align-items: center;
 
@@ -71,10 +74,8 @@ export const Admin = styled.div`
 `;
 
 export const Profile = styled.div`
-  width: 57%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+  position: absolute;
+  right: 0px;
 
   img {
     width: 55px;
