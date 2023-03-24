@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Search from "../../../assets/main/search.svg";
 
 export const Filter = styled.div`
   width: 100%;
@@ -11,17 +12,25 @@ export const Filter = styled.div`
 `;
 
 export const ListContainer = styled.div`
-  width: 418px;
+  width: 427px;
+  /* height: 300px; */
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 
   position: absolute;
   top: -11px;
 
-  border-radius: 10px 0px 10px 10px;
   background-color: white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 10px 0px 10px 10px;
+`;
+
+export const Lists = styled.div`
+  & + & {
+    border-top: 2px solid #ebebf0;
+  }
 `;
 
 export const List = styled.div`
@@ -33,18 +42,14 @@ export const List = styled.div`
   justify-content: center;
 
   img {
+    width: 30px;
+    height: 30px;
   }
 
   p {
     min-width: 70px;
     margin-left: 24px;
   }
-`;
-
-export const buttomSplit = styled.div`
-  width: 300px;
-  height: 2px;
-  background-color: #ebebf0;
 `;
 
 export const Split = styled.div`
@@ -54,7 +59,7 @@ export const Split = styled.div`
   background-color: #ebebf0;
 `;
 
-export const MainInfo = styled.div`
+export const UserMainInfo = styled.div`
   width: 790px;
   height: 70px;
 
@@ -62,7 +67,8 @@ export const MainInfo = styled.div`
   align-items: center;
 
   border-radius: 10px 0px 0px 10px;
-  background-color: #fff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+  background-color: white;
 `;
 
 export const Category = styled.div`
@@ -108,8 +114,97 @@ export const CalendarMain = styled.div`
 
 export const CalendarContainer = styled.div`
   position: absolute;
-  top: 0px;
+  top: 70px;
   z-index: 1;
 `;
 
-export const ShowDate = styled.div``;
+export const ShowDate = styled.div`
+  width: 362px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #ffffff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 0px 10px 10px 0px;
+  margin-left: 10px;
+
+  font-weight: 600;
+  font-size: 25px;
+  color: rgba(0, 0, 0, 0.5);
+`;
+
+export const SearchBtn = styled.button`
+  width: 70px;
+  height: 70px;
+  margin-left: 10px;
+
+  background-color: #143596;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url(${Search});
+
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+  border: none;
+  border-radius: 10px;
+
+  cursor: pointer;
+`;
+
+export const AdminMainContainer = styled.div`
+  position: relative;
+`;
+
+export const AdminMain = styled.div`
+  width: 790px;
+  height: 70px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #ffffff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+
+  p {
+    margin-left: 24px;
+    font-size: 15px;
+    color: #000000;
+  }
+`;
+
+export const AdminListContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: 0px;
+
+  background-color: white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+`;
+
+export const AdminList = styled.div`
+  width: 550px;
+  height: 67px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 30px;
+    height: 30px;
+  }
+
+  p {
+    min-width: 70px;
+    margin-left: 24px;
+  }
+`;
