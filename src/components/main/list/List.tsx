@@ -9,33 +9,6 @@ import { useQuery } from "react-query";
 
 const List = () => {
   const [equipmentList, setEquipmentList] = useRecoilState(Equipment);
-  const fetchtempData = async () => {
-    const res = await axios.get(
-      "http://52.78.233.107:2542/equipment/user/list"
-    );
-
-    return res.data;
-  };
-
-  const queryfetch = useQuery(["temp_query"], fetchtempData, {
-    onSuccess: (data) => {
-      console.log(data);
-    },
-    staleTime: 10000,
-  });
-
-  const { isSuccess, isError, isLoading, isFetching, data, error } = useQuery(
-    "getUsers",
-    () => axios.get(`http://52.78.233.107:2542/equipment/user/list`),
-    {
-      onSuccess: (data) => {
-        console.log("onSuccess", data);
-      },
-      onError: (error) => {
-        console.log("onError", error);
-      },
-    }
-  );
 
   const PHONE = [
     {
