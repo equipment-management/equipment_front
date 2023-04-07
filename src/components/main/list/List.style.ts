@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const List = styled.div`
   width: 100%;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,8 +22,11 @@ export const List = styled.div`
 export const ListContainer = styled.div`
   width: 1460px;
   height: auto;
-  display: flex;
+  /* display: flex;
   flex-wrap: wrap;
+  justify-content: space-evenly; */
+
+  display: grid;
 `;
 
 export const BoxContainer = styled.div`
@@ -44,11 +48,29 @@ export const Box = styled.div`
   align-items: center;
   justify-content: center;
 
+  img {
+    width: 190px;
+    height: 190px;
+  }
+
   div[id="brandInfo"] {
     width: 263px;
+    height: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    p {
+      margin-top: 40px;
+    }
+
+    p[id="name"] {
+      padding-left: 30px;
+    }
+
+    p[id="brand"] {
+      padding-right: 30px;
+    }
   }
 
   div[id="info"] {
@@ -96,10 +118,50 @@ export const Box = styled.div`
         color: #000000;
       }
     }
+  }
 
-    div[id="date"] {
-      width: 184px;
-      height: 21px;
+  div[id="date"] {
+    width: 184px;
+    height: 21px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 29px;
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 10px;
+
+    p {
+      margin: 0;
+      font-size: 8px;
     }
+
+    div[id="start"] {
+    }
+
+    div[id="eq"] {
+      width: 20px;
+      height: 2px;
+      background: black;
+      border-radius: 2px;
+    }
+
+    div[id="end"] {
+    }
+  }
+
+  button {
+    width: 262px;
+    height: 36px;
+    background: #0f2d81;
+    border-radius: 10px;
+    border: none;
+    margin-top: 29px;
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 17px;
+    color: #ffffff;
   }
 `;

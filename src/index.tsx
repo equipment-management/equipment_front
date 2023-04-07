@@ -9,7 +9,6 @@ import { ReactQueryDevtools } from "react-query/devtools";
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  // <React.StrictMode>
   <RecoilRoot>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
@@ -18,5 +17,4 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       </BrowserRouter>
     </QueryClientProvider>
   </RecoilRoot>
-  // </React.StrictMode>
 );

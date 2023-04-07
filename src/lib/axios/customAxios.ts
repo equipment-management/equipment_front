@@ -7,7 +7,7 @@ export const API = axios.create({
   timeout: 10000,
 });
 
-export const instance = axios.create({
+export const APIToken = axios.create({
   baseURL,
   timeout: 10000,
   headers: {

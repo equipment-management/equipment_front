@@ -83,6 +83,11 @@ export const Category = styled.div`
     font-size: 15px;
     color: #000000;
   }
+
+  img {
+    width: 30px;
+    height: 30px;
+  }
 `;
 
 export const CalendarRoot = styled.div`

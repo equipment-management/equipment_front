@@ -1,25 +1,30 @@
 import * as F from "./Filter.style";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { LendDate, EqList } from "../../../store/main/atom";
-import { userInfo } from "../../../store/user/atom";
+import { LendDate } from "../../../store/main/main";
 import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css"; // css import
+import "react-calendar/dist/Calendar.css";
 import CategoryImg from "../../../assets/main/category.svg";
 import DalYuck from "../../../assets/main/calendar.svg";
 
 const Filter = () => {
   const [date, setDate] = useRecoilState(LendDate);
-  const [list, setList] = useRecoilState(EqList);
-  const [user, setUser] = useRecoilState(userInfo);
-  const [toggle, setToggle] = useState(false);
-  const [selectList, setSelectList] = useState("스마트폰");
-  const [startToggle, setStartToggle] = useState(false);
-  const [endToggle, setEndToggle] = useState(false);
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-  const [maxEndDate, setMaxEndDate] = useState(new Date());
-  const [minDate, setMinDate] = useState(new Date());
+  const [list, setList] = useState([
+    "스마트폰",
+    "데스크탑",
+    "모니터",
+    "노트북",
+    "테블릿",
+  ]);
+  const [selectList, setSelectList] = useState<string>("스마트폰");
+  const [admin, setAdmin] = useState<boolean>(false);
+  const [toggle, setToggle] = useState<boolean>(false);
+  const [startToggle, setStartToggle] = useState<boolean>(false);
+  const [endToggle, setEndToggle] = useState<boolean>(false);
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [endDate, setEndDate] = useState<Date>(new Date());
+  const [maxEndDate, setMaxEndDate] = useState<Date>(new Date());
+  const [minDate, setMinDate] = useState<Date>(new Date());
 
   const dateFormat = (date: any) => {
     let month = date.getMonth() + 1;
@@ -45,8 +50,11 @@ const Filter = () => {
   }, [startDate]);
 
   useEffect(() => {
-    console.log(date);
-  }, [date]);
+    setDate({
+      start: `${dateFormat(new Date())}`,
+      end: `${dateFormat(new Date())}`,
+    });
+  }, []);
 
   const UserMain = () => {
     return (
@@ -57,7 +65,7 @@ const Filter = () => {
               setToggle(!toggle);
             }}
           >
-            <img src={CategoryImg} />
+            <img src={CategoryImg} alt="카테고리" />
             <p>{selectList}</p>
             {toggle && (
               <F.ListContainer>
@@ -71,7 +79,7 @@ const Filter = () => {
                     }}
                   >
                     <F.List>
-                      <img src={CategoryImg} />
+                      <img src={CategoryImg} alt="카테고리" />
                       <p>{i}</p>
                     </F.List>
                   </F.Lists>
@@ -83,6 +91,7 @@ const Filter = () => {
           <F.CalendarRoot>
             <img
               src={DalYuck}
+              alt="달력"
               onClick={() => {
                 setStartToggle(!startToggle);
               }}
@@ -110,6 +119,7 @@ const Filter = () => {
           <F.CalendarRoot>
             <img
               src={DalYuck}
+              alt="달력"
               onClick={() => {
                 setEndToggle(!endToggle);
               }}
@@ -150,7 +160,7 @@ const Filter = () => {
             setToggle(!toggle);
           }}
         >
-          <img src={CategoryImg} />
+          <img src={CategoryImg} alt="카테고리" />
           <p>{selectList}</p>
           {toggle && (
             <F.AdminListContainer>
@@ -164,7 +174,7 @@ const Filter = () => {
                   }}
                 >
                   <F.AdminList>
-                    <img src={CategoryImg} />
+                    <img src={CategoryImg} alt="카테고리" />
                     <p>{i}</p>
                   </F.AdminList>
                 </F.Lists>
@@ -178,8 +188,8 @@ const Filter = () => {
 
   return (
     <F.Filter>
-      {user.admin ? <AdminMain /> : <UserMain />}
-      <F.SearchBtn />
+      {admin ? <AdminMain /> : <UserMain />}
+      <F.SearchBtn title="검색 버튼" />
     </F.Filter>
   );
 };

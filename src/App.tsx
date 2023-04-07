@@ -1,13 +1,11 @@
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { memo, useCallback, useEffect } from "react";
 import styled from "styled-components";
-import { RecoilRoot, useRecoilState } from "recoil";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Main from "./components/main";
 import Header from "./components/header";
-import { userInfo } from "./store/user/atom";
 import { API } from "./lib/axios/customAxios";
-import axios from "axios";
-import { useQuery } from "react-query";
+import { loginState } from "./store/user/userState";
 
 const MainContainer = styled.div`
   margin-top: 100px;
@@ -19,32 +17,7 @@ const AllContainer = styled.div`
   /* height: 100vh; */
 `;
 
-const App = () => {
-  const [user, setUser] = useRecoilState(userInfo);
-
-  // const fetchtempData = async () => {
-  //   const res = await API.get("/equipment/list?type=PHONE");
-
-  //   return res.data;
-  // };
-
-  // const queryfetch = useQuery(["phoneList"], fetchtempData, {
-  //   onSuccess: (data) => {
-  //     console.log(data);
-  //   },
-  //   staleTime: 10000,
-  // });
-
-  useLayoutEffect(() => {
-    // console.log(queryfetch.data);
-    if (
-      localStorage.getItem("equipment_token") &&
-      localStorage.getItem("user_id")
-    ) {
-      setUser();
-    }
-  }, []);
-
+const App = memo(() => {
   return (
     <AllContainer>
       <Header />
@@ -52,10 +25,48 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Main />}></Route>
           <Route path="*" element={<div>404</div>}></Route>
+          <Route path="/callback" element={<Callback />}></Route>
         </Routes>
       </MainContainer>
     </AllContainer>
   );
+});
+
+const Callback = () => {
+  const { search } = useLocation();
+  const navigate = useNavigate();
+  const [userLogin, setUserLogin] = useRecoilState(loginState);
+
+  const serverRequest = useCallback(
+    () => async () => {
+      await API.post("/auth/dauth/login", {
+        code: `${search.slice(6, -11)}`,
+      }).then((data) => {
+        localStorage.setItem("equipment_token", data.data.accessToken);
+        localStorage.setItem("equipment_refreshToken", data.data.accessToken);
+        localStorage.setItem("equipment_user_id", data.data.user.name);
+        localStorage.setItem(
+          "equipment_admin",
+          data.data.user.role == "ROLE_STUDENT" ? "false" : "true"
+        );
+
+        setUserLogin(true);
+        navigate("/");
+      });
+    },
+    [search]
+  );
+
+  useEffect(() => {
+    serverRequest();
+  }, []);
+
+  return <div>...loading</div>;
 };
 
 export default App;
+
+// localStorage.removeItem("equipment_token");
+// localStorage.removeItem("equipment_admin");
+// localStorage.removeItem("equipment_refreshToken");
+// localStorage.removeItem("equipment_user_id");
