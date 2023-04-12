@@ -1,133 +1,18 @@
-import React, { useCallback } from "react";
+import React, { useState } from "react";
 import { useRecoilState } from "recoil";
-import { Equipment, LendDate } from "../../../store/main/main";
+import { LendDate, PHONE } from "../../../store/main/main";
 import * as L from "./List.style";
 import Iphone from "../../../assets/main/iphone.svg";
 import Cube from "../../../assets/main/cube.svg";
+import { headerPath } from "../../../store/header/headerState";
 
 const List = () => {
-  const [equipmentList, setEquipmentList] = useRecoilState(Equipment);
+  const [PhoneList, setPhoneList] = useRecoilState(PHONE);
+  const [count, setCount] = useState(0);
   const [date, setDate] = useRecoilState(LendDate);
+  const [path, setPath] = useRecoilState(headerPath);
 
-  const PHONE = [
-    {
-      equipmentId: 1,
-      equipmentName: "아이폰",
-      brand: "애플",
-      type: "PHONE",
-      size: 5,
-    },
-    {
-      equipmentId: 1,
-      equipmentName: "삼딱",
-      brand: "삼성",
-      type: "PHONE",
-      size: 15,
-    },
-    {
-      equipmentId: 1,
-      equipmentName: "아이폰",
-      brand: "애플",
-      type: "PHONE",
-      size: 5,
-    },
-    {
-      equipmentId: 1,
-      equipmentName: "삼딱",
-      brand: "삼성",
-      type: "PHONE",
-      size: 15,
-    },
-
-    {
-      equipmentId: 1,
-      equipmentName: "아이폰",
-      brand: "애플",
-      type: "PHONE",
-      size: 5,
-    },
-    {
-      equipmentId: 1,
-      equipmentName: "삼딱",
-      brand: "삼성",
-      type: "PHONE",
-      size: 15,
-    },
-    {
-      equipmentId: 1,
-      equipmentName: "아이폰",
-      brand: "애플",
-      type: "PHONE",
-      size: 5,
-    },
-    {
-      equipmentId: 1,
-      equipmentName: "삼딱",
-      brand: "삼성",
-      type: "PHONE",
-      size: 15,
-    },
-
-    {
-      equipmentId: 1,
-      equipmentName: "아이폰",
-      brand: "애플",
-      type: "PHONE",
-      size: 5,
-    },
-    {
-      equipmentId: 1,
-      equipmentName: "삼딱",
-      brand: "삼성",
-      type: "PHONE",
-      size: 15,
-    },
-    {
-      equipmentId: 1,
-      equipmentName: "아이폰",
-      brand: "애플",
-      type: "PHONE",
-      size: 5,
-    },
-    {
-      equipmentId: 1,
-      equipmentName: "삼딱",
-      brand: "삼성",
-      type: "PHONE",
-      size: 15,
-    },
-
-    {
-      equipmentId: 1,
-      equipmentName: "아이폰",
-      brand: "애플",
-      type: "PHONE",
-      size: 5,
-    },
-    {
-      equipmentId: 1,
-      equipmentName: "삼딱",
-      brand: "삼성",
-      type: "PHONE",
-      size: 15,
-    },
-    {
-      equipmentId: 1,
-      equipmentName: "아이폰",
-      brand: "애플",
-      type: "PHONE",
-      size: 5,
-    },
-    {
-      equipmentId: 1,
-      equipmentName: "삼딱",
-      brand: "삼성",
-      type: "PHONE",
-      size: 15,
-    },
-  ];
-
-  const makeList = PHONE.map((i, idx) => {
+  const makeList = PhoneList.map((i, idx) => {
     return (
       <L.BoxContainer key={idx}>
         <L.Box>
@@ -160,7 +45,7 @@ const List = () => {
 
   return (
     <L.List>
-      <h2>총 50개</h2>
+      <h2>총 {count}개</h2>
       <L.ListContainer>{makeList}</L.ListContainer>
     </L.List>
   );

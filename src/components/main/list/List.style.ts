@@ -22,11 +22,10 @@ export const List = styled.div`
 export const ListContainer = styled.div`
   width: 1460px;
   height: auto;
-  /* display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly; */
 
   display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-row-gap: 50px;
 `;
 
 export const BoxContainer = styled.div`
@@ -35,6 +34,8 @@ export const BoxContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  justify-self: center;
 
   background: #f9f9fb;
   border-radius: 10px;
@@ -47,10 +48,9 @@ export const Box = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   img {
     width: 190px;
-    height: 190px;
+    height: 160px;
   }
 
   div[id="brandInfo"] {
@@ -163,5 +163,11 @@ export const Box = styled.div`
     font-weight: 700;
     font-size: 17px;
     color: #ffffff;
+
+    cursor: pointer;
+    :hover {
+      transition: 0.5s;
+      background-color: skyblue;
+    }
   }
 `;

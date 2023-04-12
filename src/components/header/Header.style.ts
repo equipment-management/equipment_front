@@ -11,6 +11,7 @@ export const Header = styled.div`
   justify-content: center;
   position: fixed;
   top: 0;
+  z-index: 999;
 
   background-color: white;
   font-family: "Noto Rashi Hebrew";
