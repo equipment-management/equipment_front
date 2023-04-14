@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const baseURL = "http://52.78.233.107:2542";
+const baseURL = "http://15.164.249.181:2542";
 
 export const API = axios.create({
   baseURL,
-  timeout: 10000,
+  timeout: 1000,
 });
 
 export const APIToken = axios.create({

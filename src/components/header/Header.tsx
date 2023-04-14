@@ -4,18 +4,24 @@ import Game from "../../assets/header/game.svg";
 import Profile from "../../assets/header/profile.png";
 import { useRecoilState } from "recoil";
 import { headerPath } from "../../store/header/headerState";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
+
   const [path, setPath] = useRecoilState(headerPath);
   const changePath = (id: string) => {
     setPath(`${id}`);
     if (id == "admin") {
       setPath(`inquiry`);
+      navigate("admin");
       document.getElementById("admin")?.classList.add("selected");
     } else if (id == "inquiry" || id == "approve" || id == "register") {
       document.getElementById("admin")?.classList.add("selected");
+      navigate("admin");
     } else {
       document.getElementById("admin")?.classList.remove("selected");
+      navigate("");
     }
   };
 

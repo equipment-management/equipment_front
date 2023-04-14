@@ -1,7 +1,7 @@
 import * as F from "./Filter.style";
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { LendDate } from "../../../store/main/main";
+import { LastCategory, LendDate } from "../../../store/main/main";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import CategoryImg from "../../../assets/main/category.svg";
@@ -16,7 +16,7 @@ const Filter = () => {
     "노트북",
     "테블릿",
   ]);
-  const [selectList, setSelectList] = useState<string>("스마트폰");
+  const [selectList, setSelectList] = useRecoilState<string>(LastCategory);
   const [admin, setAdmin] = useState<boolean>(false);
   const [toggle, setToggle] = useState<boolean>(false);
   const [startToggle, setStartToggle] = useState<boolean>(false);

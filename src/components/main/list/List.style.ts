@@ -112,7 +112,7 @@ export const Box = styled.div`
       }
 
       p {
-        margin-left: 7px;
+        /* margin-left: 7px; */
         font-weight: 700;
         font-size: 10px;
         color: #000000;
@@ -171,23 +171,10 @@ export const Box = styled.div`
     }
   }
 
-  #standby {
+  #PENDING,
+  #DENY,
+  #RETURN {
     background-color: rgba(15, 45, 129, 0.4);
     color: #000000;
   }
-`;
-
-export const RentBox = styled.div`
-  display: flex;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  width: 1300px;
-  height: 800px;
-
-  background: #ffffff;
-  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.04);
-  border-radius: 30px;
 `;

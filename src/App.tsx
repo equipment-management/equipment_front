@@ -24,6 +24,7 @@ const App = memo(() => {
       <MainContainer>
         <Routes>
           <Route path="/" element={<Main />}></Route>
+          <Route path="/admin" element={<Main />}></Route>
           <Route path="*" element={<div>404</div>}></Route>
           <Route path="/callback" element={<Callback />}></Route>
         </Routes>
