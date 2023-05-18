@@ -9,7 +9,6 @@ export const List = styled.div`
   justify-content: center;
 
   h2 {
-    font-family: "Noto Rashi Hebrew";
     font-weight: 700;
     font-size: 40px;
     color: #000000;
@@ -128,7 +127,6 @@ export const Box = styled.div`
     justify-content: space-evenly;
     margin-top: 29px;
 
-    font-style: normal;
     font-weight: 700;
     font-size: 10px;
 
@@ -159,16 +157,11 @@ export const Box = styled.div`
     border: none;
     margin-top: 29px;
 
-    font-style: normal;
     font-weight: 700;
     font-size: 17px;
     color: #ffffff;
 
     cursor: pointer;
-    :hover {
-      transition: 0.5s;
-      background-color: skyblue;
-    }
   }
 
   #PENDING,

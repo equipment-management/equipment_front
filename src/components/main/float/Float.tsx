@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from "react";
-import Iphone from "../../../assets/main/iphone.svg";
-import Calendar from "../../../assets/main/Calendar.svg";
+import Iphone from "../../../assets/main/iphone.png";
+import Calendar from "../../../assets/main/Calendar.png";
 import * as L from "./Float.style";
 import { useRecoilState } from "recoil";
 import { LendDate } from "../../../store/main/main";
-import { useQuery } from "react-query";
-import { API } from "../../../lib/axios/customAxios";
+import { APIToken } from "../../../lib/axios/customAxios.js";
 
 const Float = ({ Item, setFlag }: any) => {
   const [date, setDate] = useRecoilState(LendDate);
-  const [reason, setReason] = useState("");
+  const [reason, setReason] = useState<string>("");
 
-  API.post(`equipment/request/${Item.equipmentId}`).then((res) =>
-    console.log(res.data)
-  );
-
-  const CloseFloat = () => {
-    console.log(Item);
-    console.log(reason);
-    setFlag(false);
+  const RequestData = () => {
+    if (reason == "" || reason.trim() == "") {
+      alert("사유를 적어주세요.");
+    } else {
+      APIToken.post(`equipment/request/${Item.equipmentId}`, {
+        rentaledAt: `${date.start}`,
+        terminateRental: `${date.end}`,
+      }).then((res) => console.log(res.data));
+      setFlag(false);
+    }
   };
 
   useEffect(() => {
@@ -60,7 +61,14 @@ const Float = ({ Item, setFlag }: any) => {
             <L.Button>
               <button
                 onClick={() => {
-                  CloseFloat();
+                  setFlag(false);
+                }}
+              >
+                신청 취소
+              </button>
+              <button
+                onClick={() => {
+                  RequestData();
                 }}
               >
                 신청하기

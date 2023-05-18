@@ -13,44 +13,6 @@ export const LastCategory = atom({
   default: "스마트폰",
 });
 
-export const Rent = atom({
-  key: "Rent",
-  default: [
-    {
-      equipmentId: 1,
-      equipmentName: "아이폰",
-      brand: "애플",
-      type: "PHONE",
-      state: "PENDING",
-      size: 0,
-    },
-    {
-      equipmentId: 2,
-      equipmentName: "아이폰",
-      brand: "애플",
-      type: "PHONE",
-      state: "APPROVE",
-      size: 0,
-    },
-    {
-      equipmentId: 3,
-      equipmentName: "아이폰",
-      brand: "애플",
-      type: "PHONE",
-      state: "DENY",
-      size: 0,
-    },
-    {
-      equipmentId: 4,
-      equipmentName: "아이폰",
-      brand: "애플",
-      type: "PHONE",
-      state: "RETURN",
-      size: 0,
-    },
-  ],
-});
-
 export const equipmentList = atom({
   key: "equipmentList",
   default: [
@@ -59,8 +21,11 @@ export const equipmentList = atom({
       equipmentName: "test",
       brand: "test",
       type: "test",
-      state: "",
+      status: "",
       size: 5,
+      terminateRental: "",
+      rentaledAt: "",
+      userEquipmentId: "",
     },
   ],
 });

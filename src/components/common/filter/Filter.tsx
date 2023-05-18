@@ -4,11 +4,13 @@ import { useRecoilState } from "recoil";
 import { LastCategory, LendDate } from "../../../store/main/main";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import CategoryImg from "../../../assets/main/category.svg";
-import DalYuck from "../../../assets/main/calendar.svg";
+import CategoryImg from "../../../assets/main/category.png";
+import DalYuck from "../../../assets/main/calendar.png";
+import { headerPath } from "../../../store/header/headerState";
 
 const Filter = () => {
   const [date, setDate] = useRecoilState(LendDate);
+  const [path, setPath] = useRecoilState<string>(headerPath);
   const [list, setList] = useState([
     "스마트폰",
     "데스크탑",
@@ -17,7 +19,6 @@ const Filter = () => {
     "테블릿",
   ]);
   const [selectList, setSelectList] = useRecoilState<string>(LastCategory);
-  const [admin, setAdmin] = useState<boolean>(false);
   const [toggle, setToggle] = useState<boolean>(false);
   const [startToggle, setStartToggle] = useState<boolean>(false);
   const [endToggle, setEndToggle] = useState<boolean>(false);
@@ -62,11 +63,11 @@ const Filter = () => {
         <F.UserMainInfo>
           <F.Category
             onClick={() => {
-              setToggle(!toggle);
+              path == "request" && setToggle(!toggle);
             }}
           >
             <img src={CategoryImg} alt="카테고리" />
-            <p>{selectList}</p>
+            <p>{path == "requestDetail" ? "전체" : selectList}</p>
             {toggle && (
               <F.ListContainer>
                 {list.map((i, idx) => (
@@ -161,7 +162,7 @@ const Filter = () => {
           }}
         >
           <img src={CategoryImg} alt="카테고리" />
-          <p>{selectList}</p>
+          <p>{path == "requestDetail" ? "전체" : selectList}</p>
           {toggle && (
             <F.AdminListContainer>
               {list.map((i, idx) => (
@@ -188,8 +189,12 @@ const Filter = () => {
 
   return (
     <F.Filter>
-      {admin ? <AdminMain /> : <UserMain />}
-      <F.SearchBtn title="검색 버튼" />
+      {localStorage.getItem("equipment_admin") == "true" ? (
+        <AdminMain />
+      ) : (
+        <UserMain />
+      )}
+      {/* <F.SearchBtn title="검색 버튼" /> */}
     </F.Filter>
   );
 };

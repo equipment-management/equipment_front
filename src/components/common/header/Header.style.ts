@@ -1,5 +1,3 @@
-/** @format */
-
 import styled from "styled-components";
 
 export const Header = styled.div`
@@ -14,7 +12,6 @@ export const Header = styled.div`
   z-index: 999;
 
   background-color: white;
-  font-family: "Noto Rashi Hebrew";
 
   .selected {
     color: #000000;

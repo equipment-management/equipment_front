@@ -3,23 +3,22 @@ import { useRecoilState } from "recoil";
 import {
   LastCategory,
   LendDate,
-  Rent,
   equipmentList,
 } from "../../../store/main/main";
 import * as L from "./List.style";
-import Calendar from "../../../assets/main/Calendar.svg";
-import Iphone from "../../../assets/main/iphone.svg";
+import Iphone from "../../../assets/main/iphone.png";
 import { headerPath } from "../../../store/header/headerState";
-import { API } from "../../../lib/axios/customAxios";
+import { API, APIToken } from "../../../lib/axios/customAxios.js";
 import { useQuery } from "react-query";
 import Float from "../float/Float";
 
 interface Item {
+  userEquipmentId: string;
   equipmentId: number;
   equipmentName: string;
   brand: string;
   type: string;
-  state: string;
+  status: string;
   size: number;
 }
 
@@ -34,7 +33,7 @@ const List = () => {
   const [Item, setItem] = useState<Item>();
 
   const BtnContent = (data: any) => {
-    switch (data.state) {
+    switch (data.status) {
       case "PENDING":
         return "승인 대기중";
 
@@ -72,20 +71,37 @@ const List = () => {
   };
 
   const SetEquipmentList = (data: any) => {
+    console.log(data);
     setCount(data.count);
     setList(data.list);
   };
 
   const BtnClick = (data: Item) => {
     setPropsData(data);
-    if (path != "requestDetail") setFlag(true);
+    if (path != "requestDetail") {
+      setFlag(true);
+    } else if (path == "requestDetail") {
+      console.log(data.userEquipmentId);
+      APIToken.delete(`equipment/${data.userEquipmentId}`).then((res) =>
+        console.log(res)
+      );
+    }
   };
 
-  const { isLoading, error, data } = useQuery("GetEquipmentList", () =>
-    API.get(`equipment/list?type=${EquipmentCategory()}`).then((res) =>
-      SetEquipmentList(res.data)
-    )
+  const { isLoading, error, data, refetch } = useQuery("GetEquipmentList", () =>
+    path == "request"
+      ? API.get(`equipment/list?type=${EquipmentCategory()}`).then((res) =>
+          SetEquipmentList(res.data)
+        )
+      : APIToken.get(`equipment/user/list`).then((res) =>
+          SetEquipmentList(res.data)
+        )
   );
+
+  useEffect(() => {
+    console.log(selectList);
+    refetch();
+  }, [path, selectList]);
 
   const makeList = List.map((i, idx) => {
     return (
@@ -104,14 +120,15 @@ const List = () => {
           </div>
           <div id="date">
             <div id="start">
-              대여 시작일<p>{date.start}</p>
+              대여 시작일<p>{path == "request" ? date.start : i.rentaledAt}</p>
             </div>
             <div id="eq" />
             <div id="end">
-              대여 종료일<p>{date.end}</p>
+              대여 종료일
+              <p>{path == "request" ? date.end : i.terminateRental}</p>
             </div>
           </div>
-          <button id={i.state} onClick={() => BtnClick(i)}>
+          <button id={i.status} onClick={() => BtnClick(i)}>
             {BtnContent(i)}
           </button>
         </L.Box>

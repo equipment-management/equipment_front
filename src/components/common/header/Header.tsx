@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
 import * as H from "./Header.style";
-import Game from "../../assets/header/game.svg";
-import Profile from "../../assets/header/profile.png";
+import Game from "../../../assets/header/game.png";
+import Profile from "../../../assets/header/profile.png";
 import { useRecoilState } from "recoil";
-import { headerPath } from "../../store/header/headerState";
+import { headerPath } from "../../../store/header/headerState";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
@@ -54,7 +54,7 @@ const Header = () => {
         >
           신청내역
         </H.ListName>
-        {localStorage.getItem("equipment_admin") && (
+        {localStorage.getItem("equipment_admin") == "true" && (
           <H.Admin>
             <H.ListName id="admin" onClick={() => changePath("admin")}>
               관리자

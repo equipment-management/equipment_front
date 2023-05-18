@@ -100,7 +100,6 @@ export const CalendarContainer = styled.div`
       display: flex;
       flex-direction: column;
 
-      font-style: normal;
       font-weight: 500;
       font-size: 18px;
       line-height: 21px;
@@ -116,11 +115,11 @@ export const Button = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   margin-top: 60px;
 
   button {
-    width: 400px;
+    width: 200px;
     height: 50px;
 
     background: #0f2d81;
@@ -131,9 +130,6 @@ export const Button = styled.div`
     font-size: 25px;
     color: #ffffff;
 
-    :hover {
-      transition: 0.5s;
-      background-color: skyblue;
-    }
+    cursor: pointer;
   }
 `;
