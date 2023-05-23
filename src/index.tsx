@@ -10,8 +10,8 @@ const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <RecoilRoot>
     <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={true} />
       <BrowserRouter>
-        <ReactQueryDevtools initialIsOpen={true} />
         <App />
       </BrowserRouter>
     </QueryClientProvider>

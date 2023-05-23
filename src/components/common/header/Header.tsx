@@ -1,22 +1,24 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect } from "react";
 import * as H from "./Header.style";
+import { useRecoilState } from "recoil";
+import { headerPath } from "../../../store/header";
+import { useNavigate } from "react-router-dom";
+import { localData } from "../../../store/loacl";
 import Game from "../../../assets/header/game.png";
 import Profile from "../../../assets/header/profile.png";
-import { useRecoilState } from "recoil";
-import { headerPath } from "../../../store/header/headerState";
-import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
 
   const [path, setPath] = useRecoilState(headerPath);
-  const changePath = (id: string) => {
+
+  const changePathStyle = (id: string) => {
     setPath(`${id}`);
-    if (id == "admin") {
+    if (id === "admin") {
       setPath(`inquiry`);
       navigate("admin");
       document.getElementById("admin")?.classList.add("selected");
-    } else if (id == "inquiry" || id == "approve" || id == "register") {
+    } else if (id === "inquiry" || id === "approve" || id === "register") {
       document.getElementById("admin")?.classList.add("selected");
       navigate("admin");
     } else {
@@ -26,8 +28,10 @@ const Header = () => {
   };
 
   useEffect(() => {
-    console.log(path);
-  }, [path]);
+    if (path === "inquiry") {
+      document.getElementById("admin")?.classList.add("selected");
+    }
+  }, []);
 
   return (
     <H.Header>
@@ -36,47 +40,49 @@ const Header = () => {
           <img src={Game} alt="logo" />
           대소고 기자재
         </H.Name>
-        <H.ListName
-          id="request"
-          className={path === "request" ? "selected" : ""}
-          onClick={() => {
-            changePath("request");
-          }}
-        >
-          신청
-        </H.ListName>
-        <H.ListName
-          id="requestDetail"
-          className={path == "requestDetail" ? "selected" : ""}
-          onClick={() => {
-            changePath("requestDetail");
-          }}
-        >
-          신청내역
-        </H.ListName>
-        {localStorage.getItem("equipment_admin") == "true" && (
+        {!useRecoilState(localData)[0].admin && (
+          <>
+            <H.ListName
+              id="request"
+              className={path === "request" ? "selected" : ""}
+              onClick={() => {
+                changePathStyle("request");
+              }}
+            >
+              신청
+            </H.ListName>
+            <H.ListName
+              id="requestDetail"
+              className={path === "requestDetail" ? "selected" : ""}
+              onClick={() => {
+                changePathStyle("requestDetail");
+              }}
+            >
+              신청내역
+            </H.ListName>
+          </>
+        )}
+        {useRecoilState(localData)[0].admin && (
           <H.Admin>
-            <H.ListName id="admin" onClick={() => changePath("admin")}>
+            <H.ListName id="admin" onClick={() => changePathStyle("admin")}>
               관리자
             </H.ListName>
-            <p
-              className={path == "inquiry" ? "selected" : ""}
-              onClick={() => changePath("inquiry")}
-            >
-              조회
-            </p>
-            <p
-              className={path == "approve" ? "selected" : ""}
-              onClick={() => changePath("approve")}
-            >
-              승인
-            </p>
-            <p
-              className={path == "register" ? "selected" : ""}
-              onClick={() => changePath("register")}
-            >
-              등록
-            </p>
+            {[
+              ["inquiry", "조회"],
+              ["approve", "승인"],
+              ["register", "등록"],
+            ].map((i, idx) => {
+              console.log(i);
+              return (
+                <p
+                  key={idx}
+                  className={path === `${i[0]}` ? "selected" : ""}
+                  onClick={() => changePathStyle(`${i[0]}`)}
+                >
+                  {i[1]}
+                </p>
+              );
+            })}
           </H.Admin>
         )}
         <H.Profile>

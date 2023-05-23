@@ -7,7 +7,7 @@ export const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  position: fixed;
+  /* position: fixed; */
   top: 0;
   z-index: 999;
 
