@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Callback from "./Callback.jsx";
 import Header from "./components/common/Header/Header";
-import { useEffect } from "react";
 import UserMain from "./components/User/Main";
 import AdminMain from "./components/Admin/Main";
 

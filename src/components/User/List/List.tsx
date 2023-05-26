@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import * as L from "./List.style";
-import Iphone from "../../../assets/list/iphone.png";
+import Iphone from "../../../assets/list/iphone.svg";
 import { useQuery } from "react-query";
 import Float from "../Float/Float";
 import { lendDate, selectCategory } from "../../../store/category";
@@ -22,13 +22,14 @@ interface Item {
 }
 
 const List = () => {
-  const [propsData, setPropsData] = useState<Item>();
-  const [count, setCount] = useState<number>(0);
-  const [flag, setFlag] = useState<boolean>(false);
   const [date, setDate] = useRecoilState(lendDate);
   const [path, setPath] = useRecoilState<string>(headerPath);
   const [selectList, setSelectList] = useRecoilState<string>(selectCategory);
   const [List, setList] = useRecoilState(equipmentList);
+
+  const [propsData, setPropsData] = useState<Item>();
+  const [count, setCount] = useState<number>(0);
+  const [flag, setFlag] = useState<boolean>(false);
   const [Item, setItem] = useState<Item>();
 
   const BtnContent = (data: any) => {
@@ -64,43 +65,41 @@ const List = () => {
       case "노트북":
         return "LAPTOP";
 
-      case "테블릿":
+      case "태블릿":
         return "TABLET";
     }
   };
 
   const SetEquipmentList = (data: any) => {
-    console.log(data);
     setCount(data.count);
     setList(data.list);
   };
 
   const BtnClick = (data: Item) => {
     setPropsData(data);
-    if (path != "requestDetail") {
+    if (path !== "requestDetail") {
       setFlag(true);
-    } else if (path == "requestDetail") {
-      console.log(data.userEquipmentId);
+    } else if (path === "requestDetail") {
       APIToken.delete(`equipment/${data.userEquipmentId}`).then((res) =>
         console.log(res)
       );
     }
   };
 
-  const { isLoading, error, data, refetch } = useQuery("GetEquipmentList", () =>
-    path === "request"
-      ? API.get(`equipment/list?type=${EquipmentCategory()}`).then((res) =>
-          SetEquipmentList(res.data)
-        )
-      : APIToken.get(`equipment/user/list`).then((res) => {
-          SetEquipmentList(res.data);
-          console.log(res);
-        })
+  const { isLoading, error, data, refetch } = useQuery(
+    "GetEquipmentList",
+    async () =>
+      path === "request"
+        ? await API.get(`equipment/list?type=${EquipmentCategory()}`).then(
+            (res) => SetEquipmentList(res.data)
+          )
+        : await APIToken.get(`equipment/user/list`).then((res) => {
+            SetEquipmentList(res.data);
+            console.log(res);
+          })
   );
 
   useEffect(() => {
-    console.log(path);
-    console.log(selectList);
     refetch();
   }, [path, selectList]);
 

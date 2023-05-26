@@ -5,6 +5,7 @@ export const RentBox = styled.div`
   justify-content: center;
 
   position: fixed;
+  z-index: 1;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

@@ -19,7 +19,8 @@ export const List = styled.div`
 `;
 
 export const ListContainer = styled.div`
-  width: 1460px;
+  /* width: 1460px; */
+  width: 76vw;
   height: auto;
 
   display: grid;

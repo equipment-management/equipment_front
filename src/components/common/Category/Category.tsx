@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as C from "./Category.style";
 import { useRecoilState } from "recoil";
-import { localData } from "../../../store/loacl";
+
 import UserCategory from "./UserCategory";
 import AdminCategory from "./AdminCategory";
 import styled from "styled-components";
@@ -24,7 +24,6 @@ const Category = () => {
   useEffect(() => {
     API.get(`equipment/types`)
       .then(async (res: any) => {
-        console.log(res.data.typeList);
         setCategoryList(res.data.typeList);
       })
       .catch((err: any) => {
@@ -34,7 +33,7 @@ const Category = () => {
 
   return (
     <Container>
-      {useRecoilState(localData)[0].admin ? (
+      {localStorage.getItem("equipment_admin") === "true" ? (
         <AdminCategory />
       ) : (
         <UserCategory />

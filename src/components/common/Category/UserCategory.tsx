@@ -3,8 +3,8 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import * as C from "./Category.style";
 import { calculateDateFormat } from "../../../common/function/Dateformat";
-import DalYuck from "../../../assets/category/calendar.png";
-import CategoryImg from "../../../assets/category/category.png";
+import DalYuck from "../../../assets/category/calendar.svg";
+import CategoryImg from "../../../assets/category/category.svg";
 import { useRecoilState } from "recoil";
 import { headerPath } from "../../../store/header";
 import {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import * as C from "./Category.style";
-import CategoryImg from "../../../assets/category/category.png";
+import CategoryImg from "../../../assets/category/category.svg";
 import { useRecoilState } from "recoil";
 import { categoryKind, selectCategory } from "../../../store/category";
 import { headerPath } from "../../../store/header";

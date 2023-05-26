@@ -3,8 +3,7 @@ import * as H from "./Header.style";
 import { useRecoilState } from "recoil";
 import { headerPath } from "../../../store/header";
 import { useNavigate } from "react-router-dom";
-import { localData } from "../../../store/loacl";
-import Game from "../../../assets/header/game.png";
+import Game from "../../../assets/header/game.svg";
 import Profile from "../../../assets/header/profile.png";
 
 const Header = () => {
@@ -40,7 +39,7 @@ const Header = () => {
           <img src={Game} alt="logo" />
           대소고 기자재
         </H.Name>
-        {!useRecoilState(localData)[0].admin && (
+        {localStorage.getItem("equipment_admin") === "false" && (
           <>
             <H.ListName
               id="request"
@@ -62,7 +61,7 @@ const Header = () => {
             </H.ListName>
           </>
         )}
-        {useRecoilState(localData)[0].admin && (
+        {localStorage.getItem("equipment_admin") === "true" && (
           <H.Admin>
             <H.ListName id="admin" onClick={() => changePathStyle("admin")}>
               관리자

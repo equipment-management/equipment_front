@@ -16,7 +16,7 @@ const Callback = () => {
       localStorage.setItem("equipment_user_id", data.data.user.name);
       localStorage.setItem(
         "equipment_admin",
-        data.data.user.role == "ROLE_STUDENT" ? "false" : "true"
+        data.data.user.role === "ROLE_STUDENT" ? "false" : "true"
       );
 
       navigate("/");
