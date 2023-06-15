@@ -48,7 +48,7 @@ API.interceptors.response.use(
     const { response } = error;
 
     // 토큰 만료 (HTTP 상태 코드 401)
-    if (response && response.status === 401) {
+    if (response && response.status === 500) {
       const originalRequest: AxiosRequestConfig = error.config || {}; // 기본값으로 빈 객체를 할당
 
       const equipment_token = await equipment_refreshToken();

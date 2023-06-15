@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import * as L from "./List.style";
-import Iphone from "../../../assets/list/iphone.svg";
+import Iphone from "../../../assets/User/list/iphone.svg";
 import { useQuery } from "react-query";
 import Float from "../Float/Float";
 import { lendDate, selectCategory } from "../../../store/category";
 import { headerPath } from "../../../store/header";
 import { equipmentList } from "../../../store/list/list";
+import { changeEquipmentCategory } from "../../../common/function/ChangeEquipmentCategoryToEnglish";
 
 import API from "../../../lib/axios/BaseAxios";
 import APIToken from "../../../lib/axios/TokenAxios";
@@ -32,7 +33,7 @@ const List = () => {
   const [flag, setFlag] = useState<boolean>(false);
   const [Item, setItem] = useState<Item>();
 
-  const BtnContent = (data: any) => {
+  const btnContent = (data: any) => {
     switch (data.status) {
       case "PENDING":
         return "승인 대기중";
@@ -51,26 +52,7 @@ const List = () => {
     }
   };
 
-  const EquipmentCategory = () => {
-    switch (selectList) {
-      case "스마트폰":
-        return "PHONE";
-
-      case "데스크탑":
-        return "DESKTOP";
-
-      case "모니터":
-        return "MONITOR";
-
-      case "노트북":
-        return "LAPTOP";
-
-      case "태블릿":
-        return "TABLET";
-    }
-  };
-
-  const SetEquipmentList = (data: any) => {
+  const setEquipmentList = (data: any) => {
     setCount(data.count);
     setList(data.list);
   };
@@ -90,11 +72,11 @@ const List = () => {
     "GetEquipmentList",
     async () =>
       path === "request"
-        ? await API.get(`equipment/list?type=${EquipmentCategory()}`).then(
-            (res) => SetEquipmentList(res.data)
-          )
+        ? await API.get(
+            `equipment/list?type=${changeEquipmentCategory(selectList)}`
+          ).then((res) => setEquipmentList(res.data))
         : await APIToken.get(`equipment/user/list`).then((res) => {
-            SetEquipmentList(res.data);
+            setEquipmentList(res.data);
             console.log(res);
           })
   );
@@ -129,7 +111,7 @@ const List = () => {
             </div>
           </div>
           <button id={i.status} onClick={() => BtnClick(i)}>
-            {BtnContent(i)}
+            {btnContent(i)}
           </button>
         </L.Box>
       </L.BoxContainer>

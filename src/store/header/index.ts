@@ -5,3 +5,8 @@ export const headerPath = atom({
   default:
     localStorage.getItem("equipment_admin") === "true" ? "inquiry" : "request",
 });
+
+export const registerFlag = atom({
+  key: "registerFlag",
+  default: false,
+});

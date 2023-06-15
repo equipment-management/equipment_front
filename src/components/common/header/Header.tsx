@@ -1,26 +1,30 @@
 import React, { useEffect } from "react";
 import * as H from "./Header.style";
 import { useRecoilState } from "recoil";
-import { headerPath } from "../../../store/header";
+import { headerPath, registerFlag } from "../../../store/header";
 import { useNavigate } from "react-router-dom";
-import Game from "../../../assets/header/game.svg";
-import Profile from "../../../assets/header/profile.png";
+import Game from "../../../assets/User/header/game.svg";
+import Profile from "../../../assets/User/header/profile.png";
 
 const Header = () => {
   const navigate = useNavigate();
-
-  const [path, setPath] = useRecoilState(headerPath);
+  const [path, setPath] = useRecoilState<string>(headerPath);
+  const [flag, setFlag] = useRecoilState<boolean>(registerFlag);
 
   const changePathStyle = (id: string) => {
     setPath(`${id}`);
     if (id === "admin") {
       setPath(`inquiry`);
       navigate("admin");
+      setFlag(false);
       document.getElementById("admin")?.classList.add("selected");
     } else if (id === "inquiry" || id === "approve" || id === "register") {
       document.getElementById("admin")?.classList.add("selected");
+      id === "register" ? setFlag(true) : setFlag(false);
+
       navigate("admin");
     } else {
+      setFlag(false);
       document.getElementById("admin")?.classList.remove("selected");
       navigate("");
     }
@@ -29,6 +33,9 @@ const Header = () => {
   useEffect(() => {
     if (path === "inquiry") {
       document.getElementById("admin")?.classList.add("selected");
+    }
+    if (localStorage.getItem("equipment_admin")) {
+      navigate("admin");
     }
   }, []);
 
