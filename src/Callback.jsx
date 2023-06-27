@@ -10,7 +10,6 @@ const Callback = () => {
     await API.post("/auth/dauth/login", {
       code: `${search.slice(6, -11)}`,
     }).then((data) => {
-      console.log(data);
       localStorage.setItem("equipment_token", data.data.accessToken);
       localStorage.setItem("equipment_refreshToken", data.data.accessToken);
       localStorage.setItem("equipment_user_id", data.data.user.name);

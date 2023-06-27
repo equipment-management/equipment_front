@@ -21,7 +21,6 @@ const Header = () => {
     } else if (id === "inquiry" || id === "approve" || id === "register") {
       document.getElementById("admin")?.classList.add("selected");
       id === "register" ? setFlag(true) : setFlag(false);
-
       navigate("admin");
     } else {
       setFlag(false);
@@ -34,7 +33,7 @@ const Header = () => {
     if (path === "inquiry") {
       document.getElementById("admin")?.classList.add("selected");
     }
-    if (localStorage.getItem("equipment_admin")) {
+    if (localStorage.getItem("equipment_admin") === "true") {
       navigate("admin");
     }
   }, []);
@@ -78,7 +77,6 @@ const Header = () => {
               ["approve", "승인"],
               ["register", "등록"],
             ].map((i, idx) => {
-              console.log(i);
               return (
                 <p
                   key={idx}

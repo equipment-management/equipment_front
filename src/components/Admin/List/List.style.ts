@@ -58,6 +58,17 @@ export const List = styled.div`
 
   margin-top: 30px;
 
+  p,
+  .name,
+  .reason,
+  .equipment,
+  .state,
+  .date {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   img {
     width: 80px;
     height: 80px;
@@ -77,11 +88,11 @@ export const List = styled.div`
   }
 
   .reason {
-    width: 30vw;
+    width: 25vw;
   }
 
   .equipment {
-    width: 8vw;
+    width: 13vw;
   }
 
   .state {
@@ -89,7 +100,7 @@ export const List = styled.div`
   }
 
   .date {
-    width: 18vw;
+    width: 19vw;
     display: flex;
     justify-content: flex-end;
   }

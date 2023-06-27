@@ -42,6 +42,7 @@ export const Margin = styled.div`
 
   & > p {
     margin-top: 40px;
+    font-weight: bolder;
   }
   #name {
     margin-top: 45px;

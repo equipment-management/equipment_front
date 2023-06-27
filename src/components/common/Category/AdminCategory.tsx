@@ -9,7 +9,6 @@ const AdminCateogry = () => {
   const [list, setList] = useRecoilState(categoryKind);
   const [selectList, setSelectList] = useRecoilState<string>(selectCategory);
   const [path, setPath] = useRecoilState<string>(headerPath);
-
   const [toggle, setToggle] = useState<boolean>(false);
 
   return (
@@ -20,8 +19,11 @@ const AdminCateogry = () => {
         }}
       >
         <img src={CategoryImg} alt="카테고리" />
-        <p>{path == "requestDetail" ? "전체" : selectList}</p>
-        {toggle && (
+        <p>
+          {/* {path == "requestDetail" || path == "inquiry" ? "전체" : selectList} */}
+          전체
+        </p>
+        {/* {toggle && (
           <C.AdminListContainer>
             {list.map((i, idx) => (
               <C.Lists
@@ -39,7 +41,7 @@ const AdminCateogry = () => {
               </C.Lists>
             ))}
           </C.AdminListContainer>
-        )}
+        )} */}
       </C.AdminMain>
     </C.AdminMainContainer>
   );

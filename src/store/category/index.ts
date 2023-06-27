@@ -1,6 +1,11 @@
 import { atom } from "recoil";
 
-export const lendDate = atom({
+interface lendDateType {
+  start: string;
+  end: string;
+}
+
+export const lendDate = atom<lendDateType>({
   key: "lendDate",
   default: {
     start: "",
@@ -8,12 +13,12 @@ export const lendDate = atom({
   },
 });
 
-export const selectCategory = atom({
+export const selectCategory = atom<string>({
   key: "selectCategory",
   default: "스마트폰",
 });
 
-export const categoryKind = atom({
+export const categoryKind = atom<string[]>({
   key: "categoryKind",
   default: [],
 });

@@ -69,7 +69,7 @@ const List = () => {
   };
 
   const { isLoading, error, data, refetch } = useQuery(
-    "GetEquipmentList",
+    "EquipmentList",
     async () =>
       path === "request"
         ? await API.get(
