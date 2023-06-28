@@ -7,6 +7,7 @@ import { headerPath, registerFlag } from "../../../../store/header";
 import { categoryKind } from "../../../../store/category";
 import API from "../../../../lib/axios/BaseAxios";
 import TokenAPI from "../../../../lib/axios/TokenAxios";
+import { toast } from "react-toastify";
 
 const Register = () => {
   interface equipmentType {
@@ -22,11 +23,11 @@ const Register = () => {
   const [path, setPath] = useRecoilState<string>(headerPath);
   const [category] = useRecoilState<string[]>(categoryKind);
   const [equipmentInfo, setEquipmentInfo] = useState<equipmentType>({
-    name: "string",
-    brand: "string",
+    name: "",
+    brand: "",
     type: "PHONE",
     size: 0,
-    imageList: [0],
+    imageList: [1],
   });
 
   const handleFileChange = (event: React.ChangeEvent) => {
@@ -47,6 +48,8 @@ const Register = () => {
     })
       .then((response) => {
         console.log(response);
+        setEquipmentInfo({ ...equipmentInfo, imageList: [response.data] });
+        sendData();
       })
       .catch((error) => {
         console.error(error);
@@ -54,7 +57,27 @@ const Register = () => {
   };
 
   const sendData = async () => {
-    await API.post(`/equipment`);
+    if (equipmentInfo.brand === "" || equipmentInfo.name === "") {
+      alert("이름 또는 브랜드를 작성해주세요");
+    } else {
+      await TokenAPI.post(`/equipment`, equipmentInfo)
+        .then((d) => {
+          console.log(d);
+          toast.success(`등록 성공`, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: false,
+            progress: undefined,
+            theme: "light",
+          });
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
   };
 
   return (
@@ -95,7 +118,8 @@ const Register = () => {
             <input type="file" id="inputFile" onChange={handleFileChange} />
             <button
               onClick={() => {
-                uploadImg();
+                // uploadImg();
+                sendData();
               }}
             >
               등록

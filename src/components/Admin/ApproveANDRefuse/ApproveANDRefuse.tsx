@@ -8,6 +8,23 @@ import {
   adminEquipmentListKey,
 } from "../../../store/list/list";
 import API from "../../../lib/axios/BaseAxios";
+import TokenAPI from "../../../lib/axios/TokenAxios";
+
+interface listType {
+  userEquipmentId: number;
+  equipmentName: string;
+  brand: string;
+  type: string;
+  size: number;
+  status: string;
+  rentaledAt: string;
+  terminateRental: string;
+  reason: string;
+  grade: number;
+  room: number;
+  number: number;
+  name: string;
+}
 
 const Toast = (bol: boolean, an: string) => {
   bol
@@ -44,23 +61,8 @@ const ApproveANDRefuse = () => {
 };
 
 const ApproveBox = () => {
-  interface listType {
-    userEquipmentId: number;
-    equipmentName: string;
-    brand: string;
-    type: string;
-    size: number;
-    status: string;
-    rentaledAt: string;
-    terminateRental: string;
-    reason: string;
-    grade: number;
-    room: number;
-    number: number;
-    name: string;
-  }
-
   const [apReBox, setApReBox] = useRecoilState<boolean>(approveRefuseBox);
+  const [hash, setHash] = useState<string>("test");
   const [list, setList] = useRecoilState<Array<listType>>(adminEquipmentList);
   const [shareKey, setShareKey] = useRecoilState<number>(adminEquipmentListKey);
   const info = list[shareKey];
@@ -73,6 +75,18 @@ const ApproveBox = () => {
       })
       .catch((e) => {
         console.error(e);
+      });
+  };
+
+  const approve = () => {
+    TokenAPI.post(`/admin/approve/${info.userEquipmentId}?hash=${hash}`)
+      .then((d) => {
+        console.log(d);
+        Toast(true, "대여 승인");
+        window.location.reload();
+      })
+      .catch((e) => {
+        console.log(e);
       });
   };
 
@@ -105,7 +119,7 @@ const ApproveBox = () => {
               width={"100px"}
               onClick={() => {
                 setApReBox(false);
-                Toast(true, "대여 승인");
+                approve();
               }}
             />
             <A.Btn id="X" width={"100px"} onClick={() => setApReBox(false)} />
@@ -118,6 +132,21 @@ const ApproveBox = () => {
 
 const RefuseBox = () => {
   const [apReBox, setApReBox] = useRecoilState<boolean>(approveRefuseBox);
+  const [list, setList] = useRecoilState<Array<listType>>(adminEquipmentList);
+  const [shareKey, setShareKey] = useRecoilState<number>(adminEquipmentListKey);
+  const info = list[shareKey];
+
+  const refuse = () => {
+    TokenAPI.delete(`/admin/deny/${info.userEquipmentId}`)
+      .then((d) => {
+        console.log(d);
+        Toast(true, "거절 완료");
+        window.location.reload();
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   return (
     <A.MiniBox>
@@ -128,7 +157,7 @@ const RefuseBox = () => {
           width={"70px"}
           onClick={() => {
             setApReBox(false);
-            Toast(true, "거절 완료");
+            refuse();
           }}
         />
         <A.Btn id="X" width={"70px"} onClick={() => setApReBox(false)} />
