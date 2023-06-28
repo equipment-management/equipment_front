@@ -118,8 +118,9 @@ const Register = () => {
             <input type="file" id="inputFile" onChange={handleFileChange} />
             <button
               onClick={() => {
-                // uploadImg();
-                sendData();
+                uploadImg();
+                setFlag(false);
+                setPath("inquiry");
               }}
             >
               등록

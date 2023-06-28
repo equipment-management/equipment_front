@@ -62,13 +62,13 @@ const ApproveANDRefuse = () => {
 
 const ApproveBox = () => {
   const [apReBox, setApReBox] = useRecoilState<boolean>(approveRefuseBox);
-  const [hash, setHash] = useState<string>("test");
+  const [hash, setHash] = useState<string>("123");
   const [list, setList] = useRecoilState<Array<listType>>(adminEquipmentList);
   const [shareKey, setShareKey] = useRecoilState<number>(adminEquipmentListKey);
   const info = list[shareKey];
 
   const getHash = () => {
-    API.get(`/admin/hash`)
+    TokenAPI.get(`/admin/hash`)
       .then((d) => {
         console.log(d);
         Toast(true, "태그 완료");

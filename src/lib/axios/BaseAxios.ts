@@ -6,4 +6,6 @@ const API = axios.create({
   timeout: 1000,
 });
 
+delete API.defaults.headers.common["Authorization"];
+
 export default API;
